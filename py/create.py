@@ -25,8 +25,25 @@ def create_spark_hadoop_network():
     return True
 
 
+def get_docker_compose_command():
+    try:
+        subprocess.run(['docker-compose', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return ['docker-compose']
+    except subprocess.CalledProcessError:
+        try:
+            subprocess.run(['docker', 'compose', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return ['docker', 'compose']
+        except subprocess.CalledProcessError:
+            return None
+
+
 def start_container(container_dir):
-    command = ['docker', 'compose', 'up', '-d']
+    docker_compose_cmd = get_docker_compose_command()
+    if docker_compose_cmd is None:
+        print("Error: docker-compose command not found.")
+        return False
+
+    command = docker_compose_cmd + ['up', '-d']
     spinner = Halo(text=f'Starting containers in {container_dir}', spinner='dots')
     spinner.start()
     os.chdir(container_dir)
@@ -36,9 +53,9 @@ def start_container(container_dir):
         spinner.succeed('Containers started')
     except Exception as e:
         spinner.fail(f'Error starting Docker containers: {e}')
-        logging.error(f'Error during data processing: {e}')
         return False
     return True
+
 
 
 def setup_environment():

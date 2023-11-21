@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python py_injector/create.py
+python py/create.py
 
 if [ $? -ne 0 ]; then
     echo "Error in creating networks and containers"
@@ -25,7 +25,7 @@ docker exec -it namenode hdfs dfs -mkdir -p /user/spark/reddit_comments
 docker exec -it namenode hdfs dfs -chown spark:spark /user/spark/reddit_comments
 docker exec -it namenode hdfs dfs -mkdir -p /tmp
 
-python ./py_injector/process.py
+python ./py/process.py
 
 docker cp ./data/output.csv namenode:/tmp/output.csv
 
