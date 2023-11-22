@@ -89,6 +89,10 @@ services:
       - datanode
     networks:
       - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
 
   spark-worker:
     build:
@@ -109,6 +113,10 @@ services:
       - spark-master
     networks:
       - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
 
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6

@@ -25,20 +25,8 @@ def create_spark_hadoop_network():
     return True
 
 
-def get_docker_compose_command():
-    try:
-        subprocess.run(['docker-compose', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return ['docker-compose']
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.run(['docker', 'compose', '--version'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            return ['docker', 'compose']
-        except subprocess.CalledProcessError:
-            return None
-
-
 def start_container(container_dir):
-    docker_compose_cmd = get_docker_compose_command()
+    docker_compose_cmd = ['docker', 'compose']
     if docker_compose_cmd is None:
         print("Error: docker-compose command not found.")
         return False
