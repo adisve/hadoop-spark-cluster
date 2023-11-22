@@ -3,7 +3,6 @@ from halo import Halo
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 import logging
 import os
-import getpass
 
 
 def setup_logging():
@@ -16,9 +15,6 @@ def setup_logging():
 
 
 def transfer_data_to_namenode():
-    print("Running as user:", getpass.getuser())
-
-
     hdfs_path = 'hdfs://namenode:9000/user/spark/reddit_comments/'
     spark = None
     try:
@@ -64,7 +60,7 @@ def transfer_data_to_namenode():
 
         logging.info(f"Writing data to {hdfs_path}")
         df.write \
-            .format('json') \
+            .format('parquet') \
             .mode('overwrite') \
             .save(f'{hdfs_path}')
         logging.info("Data transfer completed successfully")

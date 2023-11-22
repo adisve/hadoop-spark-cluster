@@ -4,7 +4,7 @@ USER root
 
 RUN apt-get update && apt-get install vim -y
 
-RUN python -m pip install --upgrade pip && pip install pyspark halo
+RUN python -m pip install --upgrade pip && pip install pyspark halo pandas
 
 RUN mkdir -p /scripts
 RUN mkdir -p /scripts/logs

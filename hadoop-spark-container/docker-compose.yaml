@@ -78,7 +78,10 @@ services:
       - '7077:7077'
     volumes:
       - ../scripts/spark/load_comments_to_hdfs.py:/scripts/load_comments_to_hdfs.py
+      - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
+      - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
       - ../data/comments.csv:/data/comments.csv
+      - data_volume:/mnt/data
     environment:
       - SPARK_MODE=master
     depends_on:
@@ -95,7 +98,10 @@ services:
     restart: always
     volumes:
       - ../scripts/spark/load_comments_to_hdfs.py:/scripts/load_comments_to_hdfs.py
+      - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
+      - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
       - ../data/comments.csv:/data/comments.csv
+      - data_volume:/mnt/data
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
@@ -130,7 +136,7 @@ services:
       - "18630:18630"
     networks:
       - spark-hadoop-network
-
+  
   nginx:
     build:
       context: ./nginx
@@ -139,10 +145,13 @@ services:
       - "80:80"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/materialize.min.css:/data/bde-css/materialize.min.css
-      - ./nginx/bde-hadoop.css:/data/bde-css/bde-hadoop.css
+      - ./nginx/materialize.min.css:/usr/share/nginx/css/materialize.min.css
+      - ./nginx/default-styles.css:/usr/share/nginx/css/default-styles.css
+      - data_volume:/usr/share/nginx/html/data
+
     depends_on:
       - namenode
+      - spark-master
     networks:
       - spark-hadoop-network
   
@@ -150,6 +159,7 @@ volumes:
   hadoop_namenode:
   hadoop_datanode:
   hadoop_historyserver:
+  data_volume:
 
 networks:
   spark-hadoop-network:
