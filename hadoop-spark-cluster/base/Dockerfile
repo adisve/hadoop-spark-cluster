@@ -1,5 +1,9 @@
 FROM debian:10
 
+ARG JVM_ARCHITECTURE
+ARG HADOOP_ARCHITECTURE
+ARG HADOOP_VERSION
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     openjdk-11-jdk \
@@ -12,14 +16,14 @@ RUN apt-get update && \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure && \
     rm -rf /var/lib/apt/lists/*
       
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-${JVM_ARCHITECTURE}/
 
 RUN curl -O https://dist.apache.org/repos/dist/release/hadoop/common/KEYS
 
 RUN gpg --import KEYS
 
-ENV HADOOP_VERSION 3.3.6
-ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
+ENV HADOOP_VERSION ${HADOOP_VERSION}
+ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_ARCHITECTURE.tar.gz
 
 RUN set -x \
     && curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz \

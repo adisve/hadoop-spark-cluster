@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Run creation script to create the network and containers on local machine
-python3 scripts/create_containers.py
+make build -C hadoop-spark-cluster && python3 scripts/setup_cluster.py
 
 if [ $? -ne 0 ]; then
     echo "Error in creating networks and containers"

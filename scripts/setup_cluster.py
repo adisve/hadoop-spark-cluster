@@ -28,7 +28,7 @@ def create_spark_hadoop_network():
 
 
 def start_container(container_dir):
-    docker_compose_cmd = ['docker', 'compose']
+    docker_compose_cmd = ['docker-compose']
     if docker_compose_cmd is None:
         print("Error: docker-compose command not found.")
         return False
@@ -48,7 +48,7 @@ def start_container(container_dir):
 
 
 def setup_environment():
-    hadoop_container_dir = "hadoop-spark-container"
+    hadoop_container_dir = "hadoop-spark-cluster"
 
     if create_spark_hadoop_network() and start_container(hadoop_container_dir):
         print("Environment setup completed successfully.")

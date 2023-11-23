@@ -1,4 +1,5 @@
-FROM addz/hadoop-base:amd64
+ARG HADOOP_ARCHITECTURE
+FROM addz/hadoop-base:${HADOOP_ARCHITECTURE}
 
 HEALTHCHECK CMD curl -f http://localhost:9864/ || exit 1
 
