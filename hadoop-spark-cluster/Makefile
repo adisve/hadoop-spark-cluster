@@ -1,5 +1,5 @@
 DOCKER_NETWORK = docker-hadoop_default
-ENV_FILE = ./hadoop-spark-cluster/hadoop.env
+ENV_FILE = hadoop.env
 HADOOP_VERSION = 3.3.6
 HADOOP_ARCHITECTURE = 3.3.6
 JVM_ARCHITECTURE := $(shell uname -m)
