@@ -4,7 +4,20 @@ from halo import Halo
 import sys
 import os
 
+
 class CSVConverter:
+    """
+    Class to convert a SQLite database to a CSV file
+
+    Attributes
+    ----------
+    db_path : str
+        path to the SQLite database
+    db_table_name : str
+        name of the table in the SQLite database
+    chunk_size : int
+        number of rows to read from the SQLite database at a time
+    """
     def __init__(self, db_path, db_table_name, chunk_size=10000):
         self.db_path = db_path
         self.db_table_name = db_table_name

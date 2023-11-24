@@ -17,6 +17,20 @@ data_type_mapping = {
 }
 
 class DataTransfer:
+    """
+    Class to transfer data from CSV to HDFS via shared Docker network
+
+    Attributes
+    ----------
+    schema_file : str
+        path to the schema file
+    hdfs_path : str
+        path to the HDFS directory
+    log_directory : str
+        path to the log directory
+    spark : SparkSession
+        Spark session object
+    """
     def __init__(self):
         self.schema_file = "/scripts/config/schema.json"
         self.hdfs_path, self.log_directory = self.parse_config_file()

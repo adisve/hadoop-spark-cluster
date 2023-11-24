@@ -91,8 +91,7 @@ services:
       - '7077:7077'
     volumes:
       - ../scripts/spark/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
-      - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
-      - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
+      - ../scripts/spark/utils.py:/scripts/utils.py
       - ../scripts/spark/config/config.json:/scripts/config/config.json
       - ../scripts/spark/config/schema.json:/scripts/config/schema.json
       - ../data/output.csv:/data/output.csv
@@ -107,8 +106,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '1'
+          memory: 1G
 
   spark-worker:
     build:
@@ -118,8 +117,7 @@ services:
     restart: always
     volumes:
       - ../scripts/spark/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
-      - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
-      - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
+      - ../scripts/spark/utils.py:/scripts/utils.py
       - ../data/output.csv:/data/output.csv
       - data_volume:/mnt/data
     environment:
@@ -132,8 +130,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '1'
+          memory: 1G
   
   nginx:
     build:
