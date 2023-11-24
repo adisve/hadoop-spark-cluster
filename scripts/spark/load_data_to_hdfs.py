@@ -68,7 +68,7 @@ class DataTransfer:
                   .csv("/data/output.csv"))
 
             logging.info(f"Writing data to {self.hdfs_path}")
-            df.write.format("json").mode("overwrite").save(f"{self.hdfs_path}")
+            df.write.format("parquet").mode("overwrite").save(f"{self.hdfs_path}")
             logging.info("Data transfer completed successfully")
             spinner.succeed("Data transfer completed successfully")
 
