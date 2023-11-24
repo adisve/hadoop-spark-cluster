@@ -1,0 +1,4 @@
+{
+    "hdfs_path": "hdfs://namenode:9000/user/spark/reddit_comments/",
+    "log_directory": "/scripts/logs"
+}

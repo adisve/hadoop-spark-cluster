@@ -8,6 +8,7 @@ python-dotenv = "*"
 tqdm = "*"
 halo = "*"
 pyspark = "*"
+pandas = "*"
 
 [dev-packages]
 

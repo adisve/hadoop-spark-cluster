@@ -1,5 +1,5 @@
 DOCKER_NETWORK = docker-hadoop_default
-ENV_FILE = hadoop.env
+ENV_FILE = ./hadoop-spark-cluster/hadoop.env
 HADOOP_VERSION = 3.3.6
 HADOOP_ARCHITECTURE = 3.3.6
 JVM_ARCHITECTURE := $(shell uname -m)
@@ -20,8 +20,6 @@ build-env:
 	else \
 		echo "HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE)" >> $(ENV_FILE); \
 	fi
-	export HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE);
-
 
 build: build-env
 	docker build --build-arg JVM_ARCHITECTURE=$(JVM_ARCHITECTURE) --build-arg HADOOP_VERSION=$(HADOOP_VERSION) --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) -t addz/hadoop-base:$(HADOOP_ARCHITECTURE) ./base
