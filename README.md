@@ -23,24 +23,10 @@ pipenv install
 pipenv shell
 ```
 
-3. Create the necessary images for the containers:
+3. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
 ```sh
-make build -C hadoop-spark-cluster
-```
-
-4. Export the HADOOP_ARCHITECTURE variable based on the architecture of your machine, stored in the hadoop.env file:
-```sh
-export HADOOP_ARCHITECTURE=$(awk -F '=' '/^HADOOP_ARCHITECTURE/ {print $2}' ./hadoop-spark-cluster/hadoop.env)
-```
-
-5. Create the network and containers:
-```sh
-python3 scripts/setup_cluster.py
-```
-
-6. Move the comments.csv file to the Hadoop HDFS folder in the namenode container using spark:
-```sh
-./spark_jobs/spark-transfer.sh
+chmod +x init.sh
+./init.sh
 ```
 
 ## Authors

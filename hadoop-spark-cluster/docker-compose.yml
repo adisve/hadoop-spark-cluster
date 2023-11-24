@@ -104,6 +104,11 @@ services:
       - datanode
     networks:
       - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
 
   spark-worker:
     build:
@@ -124,6 +129,11 @@ services:
       - spark-master
     networks:
       - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
   
   nginx:
     build:

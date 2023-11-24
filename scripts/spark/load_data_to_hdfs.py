@@ -64,6 +64,7 @@ class DataTransfer:
             spinner.start()
             df = (self.spark.read.option("header", "true")
                   .option("mode", "DROPMALFORMED")
+                  .option("overwrite", "true")
                   .schema(schema)
                   .csv("/data/output.csv"))
 
