@@ -22,7 +22,7 @@ build-env:
 	fi
 
 build: build-env
-	docker build --build-arg JVM_ARCHITECTURE=$(JVM_ARCHITECTURE) --build-arg HADOOP_VERSION=$(HADOOP_VERSION) --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) -t addz/hadoop-base:$(HADOOP_ARCHITECTURE) ./base
+	docker build --build-arg JVM_ARCHITECTURE=$(JVM_ARCHITECTURE) --build-arg HADOOP_VERSION=$(HADOOP_VERSION) --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) --build-arg NAMENODE_DATA_DIR=reddit_comments -t addz/hadoop-base:$(HADOOP_ARCHITECTURE) ./base
 	docker build --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) -t addz/hadoop-namenode:$(HADOOP_ARCHITECTURE) ./namenode
 	docker build --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) -t addz/hadoop-datanode:$(HADOOP_ARCHITECTURE) ./datanode
 	docker build --build-arg HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE) -t addz/hadoop-resourcemanager:$(HADOOP_ARCHITECTURE) ./resourcemanager

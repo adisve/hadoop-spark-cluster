@@ -3,6 +3,7 @@ FROM debian:10
 ARG JVM_ARCHITECTURE
 ARG HADOOP_ARCHITECTURE
 ARG HADOOP_VERSION
+ARG NAMENODE_DATA_DIR
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -40,6 +41,7 @@ RUN mkdir /hadoop-data
 
 ENV HADOOP_HOME=/opt/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=/etc/hadoop
+ENV NAMENODE_DATA_DIR=${NAMENODE_DATA_DIR}
 ENV MULTIHOMED_NETWORK=1
 ENV USER=root
 ENV PATH $HADOOP_HOME/bin/:$PATH

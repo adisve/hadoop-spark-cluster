@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 namedir=$(echo $HDFS_CONF_dfs_namenode_name_dir | perl -pe 's#file://##')
 if [ ! -d "$namedir" ]; then
   echo "Namenode name directory not found: $namedir"
@@ -25,8 +26,8 @@ done
 echo "Namenode started."
 
 # Create directories and set permissions
-echo "Creating /user/spark/reddit_comments and setting permissions..."
-hdfs dfs -mkdir -p /user/spark/reddit_comments
+echo "Creating /user/spark/${NAMENODE_DATA_DIR} and setting permissions..."
+hdfs dfs -mkdir -p /user/spark/${NAMENODE_DATA_DIR}
 hdfs dfs -chown -R spark:spark /user/spark
 hdfs dfs -chmod -R 770 /user/spark
 hdfs dfs -setfacl -R -m user:dr.who:r-x /user/spark
