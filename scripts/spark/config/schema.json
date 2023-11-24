@@ -1,0 +1,25 @@
+[
+    {"name": "created_utc", "type": "Integer", "nullable": true},
+    {"name": "ups", "type": "Integer", "nullable": true},
+    {"name": "subreddit_id", "type": "String", "nullable": true},
+    {"name": "link_id", "type": "String", "nullable": true},
+    {"name": "name", "type": "String", "nullable": true},
+    {"name": "score_hidden", "type": "String", "nullable": true},
+    {"name": "author_flair_css_class", "type": "String", "nullable": true},
+    {"name": "author_flair_text", "type": "String", "nullable": true},
+    {"name": "subreddit", "type": "String", "nullable": true},
+    {"name": "id", "type": "String", "nullable": true},
+    {"name": "removal_reason", "type": "String", "nullable": true},
+    {"name": "gilded", "type": "Integer", "nullable": true},
+    {"name": "downs", "type": "Integer", "nullable": true},
+    {"name": "archived", "type": "String", "nullable": true},
+    {"name": "author", "type": "String", "nullable": true},
+    {"name": "score", "type": "Integer", "nullable": true},
+    {"name": "retrieved_on", "type": "Integer", "nullable": true},
+    {"name": "body", "type": "String", "nullable": true},
+    {"name": "distinguished", "type": "String", "nullable": true},
+    {"name": "edited", "type": "String", "nullable": true},
+    {"name": "controversiality", "type": "Integer", "nullable": true},
+    {"name": "parent_id", "type": "String", "nullable": true}
+  ]
+  

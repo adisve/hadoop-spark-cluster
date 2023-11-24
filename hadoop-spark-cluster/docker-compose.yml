@@ -4,6 +4,8 @@ services:
   namenode:
     build:
       context: ./namenode
+      args:
+        HADOOP_ARCHITECTURE: ${HADOOP_ARCHITECTURE}
     container_name: namenode
     restart: always
     ports:
@@ -18,9 +20,11 @@ services:
     networks:
       - spark-hadoop-network
 
-
   datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    build:
+      context: ./datanode
+      args:
+        HADOOP_ARCHITECTURE: ${HADOOP_ARCHITECTURE}
     container_name: datanode
     restart: always
     volumes:
@@ -33,7 +37,10 @@ services:
       - spark-hadoop-network
   
   resourcemanager:
-    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    build:
+      context: ./resourcemanager
+      args:
+        HADOOP_ARCHITECTURE: ${HADOOP_ARCHITECTURE}
     container_name: resourcemanager
     restart: always
     environment:
@@ -44,7 +51,10 @@ services:
       - spark-hadoop-network
 
   nodemanager:
-    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    build:
+      context: ./nodemanager
+      args:
+        HADOOP_ARCHITECTURE: ${HADOOP_ARCHITECTURE}
     container_name: nodemanager
     restart: always
     environment:
@@ -55,7 +65,10 @@ services:
       - spark-hadoop-network
   
   historyserver:
-    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    build:
+      context: ./historyserver
+      args:
+        HADOOP_ARCHITECTURE: ${HADOOP_ARCHITECTURE}
     container_name: historyserver
     restart: always
     environment:
@@ -77,10 +90,12 @@ services:
       - '8080:8080'
       - '7077:7077'
     volumes:
-      - ../scripts/spark/load_comments_to_hdfs.py:/scripts/load_comments_to_hdfs.py
+      - ../scripts/spark/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
       - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
       - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
-      - ../data/comments.csv:/data/comments.csv
+      - ../scripts/spark/config/config.json:/scripts/config/config.json
+      - ../scripts/spark/config/schema.json:/scripts/config/schema.json
+      - ../data/output.csv:/data/output.csv
       - data_volume:/mnt/data
     environment:
       - SPARK_MODE=master
@@ -89,6 +104,11 @@ services:
       - datanode
     networks:
       - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
 
   spark-worker:
     build:
@@ -97,10 +117,10 @@ services:
     container_name: spark-worker
     restart: always
     volumes:
-      - ../scripts/spark/load_comments_to_hdfs.py:/scripts/load_comments_to_hdfs.py
+      - ../scripts/spark/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
       - ../scripts/spark/read_partial_df.py:/scripts/read_partial_df.py
       - ../scripts/spark/utils/html_utils.py:/scripts/utils/html_utils.py
-      - ../data/comments.csv:/data/comments.csv
+      - ../data/output.csv:/data/output.csv
       - data_volume:/mnt/data
     environment:
       - SPARK_MODE=worker
@@ -109,33 +129,11 @@ services:
       - spark-master
     networks:
       - spark-hadoop-network
-
-  zookeeper:
-    image: wurstmeister/zookeeper:3.4.6
-    container_name: zookeeper
-    ports:
-      - "2181:2181"
-    networks:
-      - spark-hadoop-network
-
-  kafka:
-    image: wurstmeister/kafka:2.12-2.3.0
-    container_name: kafka
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: 172.27.1.16
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    networks:
-      - spark-hadoop-network
-
-  streamsets:
-    image: streamsets/datacollector:3.13.0-latest
-    container_name: streamsets
-    ports:
-      - "18630:18630"
-    networks:
-      - spark-hadoop-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
   
   nginx:
     build:
