@@ -9,6 +9,7 @@ tqdm = "*"
 halo = "*"
 pyspark = "*"
 pandas = "*"
+transformers = {extras = ["sentencepiece"], version = "*"}
 
 [dev-packages]
 
