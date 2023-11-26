@@ -2,7 +2,11 @@
 
 ## Project Description
 
-This project is a part of the Big Data course at the University of HKR. The goal of the project is to create a data pipeline that can be used to analyze the data from [May 2015 Reddit Comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/). The data pipeline is created using Apache Spark and the data is stored in HDFS on a Hadoop. The data pipeline is run in a Docker container.
+This project is a part of the Big Data course at the University of HKR. 
+
+The goal of the project is to create a data pipeline that can be used to analyze the data from [May 2015 Reddit Comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/), but theoretically any dataset can be used depending on the `NAMENODE_DATA_DIR` variable in `./hadoop-spark-cluster/Makefile` and the namenode HDFS url set in `scripts/spark/config.json`. The data pipeline is created using Apache Spark and the data is stored in HDFS on a Hadoop cluster, all nodes in their own containers.
+
+The program expects to find an `output.csv` file under `/data` in the project root. If you decide to download the SQLite database file in the above link, you can use the accompanying conversion script found under `scripts/utils/csv_converter.py` in order to convert the file from SQLite format to CSV. 
 
 ### Prerequisites
 
@@ -23,7 +27,12 @@ pipenv install
 pipenv shell
 ```
 
-3. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
+3. If necessary, exit safe mode in the namenode container with
+```sh
+docker exec -it namenode hdfs dfsadmin -safemode leave
+```
+
+4. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
 ```sh
 chmod +x init.sh
 ./init.sh

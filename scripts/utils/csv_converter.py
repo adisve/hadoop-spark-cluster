@@ -37,7 +37,7 @@ class CSVConverter:
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python3 scripts/csv_converter.py <path_to_sqlite_db> <database_table_name>")
+        print("Usage: python3 csv_converter.py <path_to_sqlite_db> <database_table_name>")
         sys.exit(1)
 
     db_path = sys.argv[1]

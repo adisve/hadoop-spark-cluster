@@ -3,7 +3,7 @@ from halo import Halo
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType, DoubleType, BooleanType, LongType, DateType, TimestampType
 import logging
 import json
-import os
+
 
 data_type_mapping = {
     "string": StringType(),
@@ -15,6 +15,7 @@ data_type_mapping = {
     "date": DateType(),
     "timestamp": TimestampType()
 }
+
 
 class DataTransfer:
     """

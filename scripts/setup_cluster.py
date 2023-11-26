@@ -1,7 +1,7 @@
 import os
 import logging
 import subprocess
-from spark.utils import Utils
+from utils.docker_utils import DockerUtils
 from halo import Halo
 
 
@@ -51,7 +51,7 @@ class SparkHadoopSetup:
             return False
 
     def start_container(self, container_dir):
-        docker_compose_cmd = Utils.get_docker_compose_cmd()
+        docker_compose_cmd = DockerUtils.get_docker_compose_cmd()
         command = docker_compose_cmd + ["up", "-d"]
         spinner = Halo(text=f"Starting containers in {container_dir}", spinner="dots")
         spinner.start()
