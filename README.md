@@ -1,12 +1,14 @@
-# Big Data Project
+# Hadoop Spark Cluster - Analyzing big data
 
 ## Project Description
 
-This project is a part of the Big Data course at the University of HKR. 
+This project, originally part of the Big Data course at the University of Kristianstad, aims to develop a versatile data pipeline capable of processing datasets ranging from 10-20 GB.
 
-The goal of the project is to create a data pipeline that can be used to analyze the data from [May 2015 Reddit Comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/), but theoretically any dataset can be used depending on the `NAMENODE_DATA_DIR` variable in `./hadoop-spark-cluster/Makefile` and the namenode HDFS url set in `scripts/spark/config.json`. The data pipeline is created using Apache Spark and the data is stored in HDFS on a Hadoop cluster, all nodes in their own containers.
+For our practical implementation, we selected the [May 2015 Reddit Comments Dataset](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/) available on Kaggle. However, the pipeline's flexibility allows for the incorporation of various datasets. This adaptability is achieved by adjusting the NAMENODE_DATA_DIR variable in the ./hadoop-spark-cluster/Makefile and setting the namenode HDFS URL in scripts/spark/config.json.
 
-The program expects to find an `output.csv` file under `/data` in the project root. If you decide to download the SQLite database file in the above link, you can use the accompanying conversion script found under `scripts/utils/csv_converter.py` in order to convert the file from SQLite format to CSV. 
+Leveraging Apache Spark for data processing and HDFS on a Hadoop cluster for data storage, each node operates within its own container, ensuring efficient data handling.
+
+The pipeline is designed to generate an output.csv file (prior to uploading it in parts as Parquet parts to the virtual HDFS container), located in the /data directory at the project's root. Should you opt to use the SQLite database from the provided link, a handy conversion script scripts/utils/csv_converter.py is available to convert the data from SQLite to CSV format before running the initialization script.
 
 ### Prerequisites
 
