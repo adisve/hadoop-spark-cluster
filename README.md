@@ -2,7 +2,9 @@
 
 ## Project Description
 
-This project, originally part of the Big Data course at the University of Kristianstad, aims to develop a versatile data pipeline capable of processing datasets ranging from 10-20 GB.
+This project aims to develop a versatile data pipeline capable of processing datasets large in size, utilizing Docker containers and Hadoop + Spark.
+
+## About
 
 For our practical implementation, we selected the [May 2015 Reddit Comments Dataset](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/) available on Kaggle. However, the pipeline's flexibility allows for the incorporation of various datasets. This adaptability is achieved by adjusting the NAMENODE_DATA_DIR variable in the ./hadoop-spark-cluster/Makefile and setting the namenode HDFS URL in scripts/spark/config.json.
 
@@ -10,7 +12,7 @@ Leveraging Apache Spark for data processing and HDFS on a Hadoop cluster for dat
 
 The pipeline is designed to generate an output.csv file (prior to uploading it in parts as Parquet parts to the virtual HDFS container), located in the /data directory at the project's root. Should you opt to use the SQLite database from the provided link, a handy conversion script scripts/utils/csv_converter.py is available to convert the data from SQLite to CSV format before running the initialization script.
 
-### Prerequisites
+## Prerequisites
 
 - A comments.csv file under /data/output.csv (not included in the repository due to size), which can be downloaded from [May 2015 Reddit Comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/) and then manually parsed to a csv file with the helper script csv_converter.py under scripts/.
 - Pipenv (for installing dependencies)
