@@ -14,10 +14,12 @@ ifeq ($(JVM_ARCHITECTURE),arm64)
 endif
 
 build-env:
-	@echo "" >> $(ENV_FILE)
 	@if grep -q 'HADOOP_ARCHITECTURE=' $(ENV_FILE); then \
-		sed -i'.bak' -e 's/^HADOOP_ARCHITECTURE=.*/HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE)/' $(ENV_FILE) && rm -f $(ENV_FILE).bak; \
+		if ! grep -q 'HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE)' $(ENV_FILE); then \
+			sed -i'.bak' -e 's/^HADOOP_ARCHITECTURE=.*/HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE)/' $(ENV_FILE) && rm -f $(ENV_FILE).bak; \
+		fi; \
 	else \
+		echo "" >> $(ENV_FILE); \
 		echo "HADOOP_ARCHITECTURE=$(HADOOP_ARCHITECTURE)" >> $(ENV_FILE); \
 	fi
 
