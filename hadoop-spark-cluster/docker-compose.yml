@@ -18,7 +18,7 @@ services:
     env_file:
       - ./hadoop.env
     networks:
-      - spark-hadoop-network
+      - default
 
   datanode:
     build:
@@ -34,7 +34,7 @@ services:
     env_file:
       - ./hadoop.env
     networks:
-      - spark-hadoop-network
+      - default
   
   resourcemanager:
     build:
@@ -48,7 +48,7 @@ services:
     env_file:
       - ./hadoop.env
     networks:
-      - spark-hadoop-network
+      - default
 
   nodemanager:
     build:
@@ -62,7 +62,7 @@ services:
     env_file:
       - ./hadoop.env
     networks:
-      - spark-hadoop-network
+      - default
   
   historyserver:
     build:
@@ -78,7 +78,7 @@ services:
     env_file:
       - ./hadoop.env
     networks:
-      - spark-hadoop-network
+      - default
 
   spark-master:
     build:
@@ -101,7 +101,7 @@ services:
       - namenode
       - datanode
     networks:
-      - spark-hadoop-network
+      - default
     deploy:
       resources:
         limits:
@@ -126,7 +126,7 @@ services:
     depends_on:
       - spark-master
     networks:
-      - spark-hadoop-network
+      - default
     deploy:
       resources:
         limits:
@@ -139,5 +139,6 @@ volumes:
   hadoop_historyserver:
 
 networks:
-  spark-hadoop-network:
-    driver: bridge
+  default:
+    name: shared-spark-hadoop-network
+    external: true

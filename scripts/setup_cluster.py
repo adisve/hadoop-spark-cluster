@@ -26,7 +26,7 @@ class SparkHadoopSetup:
         Sets up the Spark and Hadoop environment
     """
     def __init__(self):
-        self.network_name = "spark-hadoop-network"
+        self.network_name = "shared-spark-hadoop-network"
         self.hadoop_container_dir = "hadoop-spark-cluster"
 
     def create_spark_hadoop_network(self):
