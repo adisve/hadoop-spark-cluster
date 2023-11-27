@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project, originally part of the Big Data course at the University of Kristianstad, aims to develop a versatile data pipeline capable of processing datasets ranging from 10-20 GB.
+This project aims to develop a versatile data pipeline capable of processing datasets large in size, utilizing Docker containers and Hadoop + Spark.
 
 For our practical implementation, we selected the [May 2015 Reddit Comments Dataset](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/) available on Kaggle. However, the pipeline's flexibility allows for the incorporation of various datasets. This adaptability is achieved by adjusting the NAMENODE_DATA_DIR variable in the ./hadoop-spark-cluster/Makefile and setting the namenode HDFS URL in scripts/spark/config.json.
 
