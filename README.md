@@ -22,25 +22,29 @@ The pipeline is designed to generate an output.csv file (prior to uploading it i
 ## How to run
 
 1. Create a python virtual environment
-```sh
-pipenv install
-```
+
+    ```sh
+    pipenv install
+    ```
 
 2. Source the virtual environment
-```sh
-pipenv shell
-```
+
+    ```sh
+    pipenv shell
+    ```
 
 3. If necessary, exit safe mode in the namenode container with
-```sh
-docker exec -it namenode hdfs dfsadmin -safemode leave
-```
+
+    ```sh
+    docker exec -it namenode hdfs dfsadmin -safemode leave
+    ```
 
 4. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
-```sh
-chmod +x init.sh
-./init.sh
-```
+
+    ```sh
+    chmod +x init.sh
+    ./init.sh
+    ```
 
 ## Authors
 
