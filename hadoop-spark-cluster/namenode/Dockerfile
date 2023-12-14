@@ -7,6 +7,10 @@ ENV HDFS_CONF_dfs_namenode_name_dir=file:///hadoop/dfs/name
 RUN mkdir -p /hadoop/dfs/name
 VOLUME /hadoop/dfs/name
 
+RUN apt-get update && apt-get install vim
+
+COPY log4j.properties /etc/hadoop/log4j.properties
+
 ADD run.sh /run.sh
 RUN chmod a+x /run.sh
 
