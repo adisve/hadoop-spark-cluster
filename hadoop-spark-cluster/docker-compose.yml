@@ -104,8 +104,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: 1G
+          cpus: '2'
+          memory: 2G
 
   spark-worker:
     build:
@@ -128,8 +128,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: 1G
+          cpus: '2'
+          memory: 2G
   
 volumes:
   hadoop_namenode:
