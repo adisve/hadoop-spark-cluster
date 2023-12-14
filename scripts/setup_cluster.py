@@ -1,7 +1,6 @@
 import os
 import logging
 import subprocess
-from utils.docker_utils import DockerUtils
 from halo import Halo
 
 
@@ -51,19 +50,30 @@ class SparkHadoopSetup:
             return False
 
     def start_container(self, container_dir):
-        docker_compose_cmd = DockerUtils.get_docker_compose_cmd()
-        command = docker_compose_cmd + ["up", "-d"]
+        command_1 = ["docker-compose", "up", "-d"]
+        command_2 = ["docker", "compose", "up", "-d"]
         spinner = Halo(text=f"Starting containers in {container_dir}", spinner="dots")
         spinner.start()
         os.chdir(container_dir)
+
         try:
-            subprocess.run(command, check=True)
+            subprocess.run(command_1, check=True)
+            spinner.succeed("Containers started with docker-compose")
+        except subprocess.CalledProcessError as e1:
+            spinner.warn(f"docker-compose failed, trying docker compose: {e1}")
+
+            try:
+                subprocess.run(command_2, check=True)
+                spinner.succeed("Containers started with docker compose")
+            except subprocess.CalledProcessError as e2:
+                spinner.fail(f"Both docker-compose and docker compose failed: {e2}")
+                logging.error(f"Error starting Docker containers with both commands: {e2}")
+                return False
+
+        finally:
             os.chdir("..")
-            spinner.succeed("Containers started")
-            return True
-        except Exception as e:
-            spinner.fail(f"Error starting Docker containers: {e}")
-            return False
+
+        return True
 
     def setup_environment(self):
         if self.create_spark_hadoop_network() and self.start_container(self.hadoop_container_dir):

@@ -91,7 +91,6 @@ services:
       - '7077:7077'
     volumes:
       - ../scripts/spark/setup/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
-      - ../scripts/spark/utils.py:/scripts/utils.py
       - ../scripts/spark/config/config.json:/scripts/config/config.json
       - ../scripts/spark/config/schema.json:/scripts/config/schema.json
       - ../data/output.csv:/data/output.csv
@@ -116,7 +115,6 @@ services:
     restart: always
     volumes:
       - ../scripts/spark/setup/load_data_to_hdfs.py:/scripts/load_data_to_hdfs.py
-      - ../scripts/spark/utils.py:/scripts/utils.py
       - ../scripts/spark/config/config.json:/scripts/config/config.json
       - ../scripts/spark/config/schema.json:/scripts/config/schema.json
       - ../data/output.csv:/data/output.csv
