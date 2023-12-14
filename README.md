@@ -33,13 +33,7 @@ The pipeline is designed to generate an output.csv file (prior to uploading it i
     pipenv shell
     ```
 
-3. If necessary, exit safe mode in the namenode container with
-
-    ```sh
-    docker exec -it namenode hdfs dfsadmin -safemode leave
-    ```
-
-4. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
+3. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
 
     ```sh
     chmod +x init.sh
