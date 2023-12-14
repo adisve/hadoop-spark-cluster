@@ -11,6 +11,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+docker exec -it namenode hdfs dfsadmin -safemode leave
+
 ./spark_jobs/spark-transfer.sh
 
 echo "Process completed successfully"
