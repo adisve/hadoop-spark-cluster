@@ -10,11 +10,14 @@ For our practical implementation, we selected the [May 2015 Reddit Comments Data
 
 Leveraging Apache Spark for data processing and HDFS on a Hadoop cluster for data storage, each node operates within its own container, ensuring efficient data handling.
 
-The pipeline is designed to generate an output.csv file (prior to uploading it in parts as Parquet parts to the virtual HDFS container), located in the /data directory at the project's root. Should you opt to use the SQLite database from the provided link, a handy conversion script scripts/utils/csv_converter.py is available to convert the data from SQLite to CSV format before running the initialization script.
+The pipeline is designed to generate an output.csv file (prior to uploading it in parts as **Parquet** parts to the virtual HDFS container), located in the /data directory at the project's root. Should you opt to use the SQLite database from the provided link, a handy conversion script scripts/utils/csv_converter.py is available to convert the data from SQLite to CSV format before running the initialization script.
 
 ## Prerequisites
 
-- A comments.csv file under /data/output.csv (not included in the repository due to size), which can be downloaded from [May 2015 Reddit Comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015/) and then manually parsed to a csv file with the helper script csv_converter.py under scripts/.
+> [!IMPORTANT] 
+> - It is absolutely necessary that the output.csv file is present in the /data directory before running the initialization script. The file is not included in the repository due to its size.
+> - A **schema.json** file under the /scripts/spark directory is required for the Spark job to run. The schema.json file should contain the schema of the output.csv file in JSON format. The schema should contain types defined in the [PySpark Structfield Documentation](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.types.StructField.html).
+
 - Pipenv (for installing dependencies)
 - Docker
 - Docker Compose
@@ -33,7 +36,7 @@ The pipeline is designed to generate an output.csv file (prior to uploading it i
     pipenv shell
     ```
 
-3. Run the 'init.sh' script to move the output.csv file to HDFS as Parquet parts
+3. Run the 'init.sh' script, which moves the output.csv file to HDFS as Parquet parts
 
     ```sh
     chmod +x init.sh
