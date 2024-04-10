@@ -2,7 +2,7 @@ FROM bitnami/spark:latest
 
 USER root
 
-RUN apt-get update && apt-get install vim -y
+RUN apt-get update && apt-get upgrade
 
 RUN python -m pip install --upgrade pip && pip install pyspark halo pandas
 
