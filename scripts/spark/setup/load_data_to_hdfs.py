@@ -70,13 +70,14 @@ class DataTransfer:
         return self.parse_schema_file()
 
     def transfer_data(self):
+        spinner = Halo(text=f"Reading and writing data from /data/output.csv to {self.hdfs_path}")
+        spinner.start()
         try:
             self.start_spark_session()
             schema = self.get_schema()
 
             logging.info(f"Reading and writing data from /data/output.csv to {self.hdfs_path}")
-            spinner = Halo(text=f"Reading and writing data from /data/output.csv to {self.hdfs_path}")
-            spinner.start()
+            
             df = (self.spark.read.option("header", "true")
                   .option("mode", "DROPMALFORMED")
                   .option("overwrite", "true")
