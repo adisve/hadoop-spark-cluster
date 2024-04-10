@@ -2,3 +2,5 @@
 data
 .DS_Store
 __pycache__
+*.lock
+schema.json
